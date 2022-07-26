@@ -143,7 +143,7 @@ You will need the default API / Host key configured on your Function app. To ret
         ```text
         databricks configure --token
         ```
-    4. Upload the init script and jar to dbfs using the [Databricks CLI](https://docs.microsoft.com/en-us/azure/databricks/dev-tools/cli/)
+    4. Upload the init script and jar file to dbfs using the following script. For more information please see [Databricks CLI](https://docs.microsoft.com/en-us/azure/databricks/dev-tools/cli/)
 
         ```text
         dbfs mkdirs dbfs:/databricks/openlineage
