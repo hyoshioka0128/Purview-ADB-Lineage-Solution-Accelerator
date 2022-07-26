@@ -24,11 +24,13 @@ From the [Azure Portal](https://portal.azure.com)
 
     ![ShellIcon.png](./assets/img/deploy/ShellIcon.png)
 
-    ![SelectPowershell.png](./assets/img/deploy/SelectPowerShell.png) 
+1. Make sure “Bash” is selected from the dropdown menu located at the left corner of the terminal.
 
-    Click "Confirm" if the "Switch to PowerShell in Cloud Shell" pop up appears.
+    ![SelectBash.png](./assets/img/deploy/SelectBash.png)
 
-    ![CloudShellConfirm.png](./assets/img/deploy/CloudShellConfirm.png)
+    a. Click “Confirm” if the “Switch to Bash in Cloud Shell” pop up appears.
+
+    ![BashCloudShellConfirm.png](./assets/img/deploy/BashCloudShellConfirm.png)
 
 1. Change directory and clone this repository into the `clouddrive` directory using the latest [release tag](https://github.com/microsoft/Purview-ADB-Lineage-Solution-Accelerator/tags) (i.e. `1.1.0`). *If this directory is not available please follow these steps to [mount a new clouddrive](https://docs.microsoft.com/en-us/azure/cloud-shell/persisting-shell-storage#mount-a-new-clouddrive)*
 
@@ -115,7 +117,7 @@ You will need the default API / Host key configured on your Function app. To ret
 1. To retrieve the ADB-WORKSPACE-ID, in the Azure portal, navigate to the Azure DataBricks (ADB) service in your resource group. In the overview section, copy the ADB workspace identifier from the URL (as highlighted below).
 
     ![GetAdbEndpoint.png](./assets/img/deploy/GetAdbEndpoint.png)
-
+1. Create a Personal Access Token by launching the DataBricks workspace. Click the `Settings` gear near the bottom left of the page and click `User Settings`. Under `Access tokens` click `Generate new token`. Name your token and choose its lifetime and click `Generate`. Copy the generated token. (NOTE: You can not retrive this token once you close out of the window. Put this token in a save place!)
 1. To retrieve the FUNCTION_APP_NAME, go back to the resource group view and click on the Azure Function. On the Overview tab, copy the `URL` and save it for the next steps.
 1. To retrieve the FUNCTION_APP_DEFAULT_HOST_KEY, go back to the resource group view and click on the Azure Function. In the right pane go to 'App Keys', then click on the show values icon and copy the `default` key.
 
@@ -123,7 +125,7 @@ You will need the default API / Host key configured on your Function app. To ret
 
 1. Follow the instructions below and refer to the [OpenLineage Databricks Install Instructions](https://github.com/OpenLineage/OpenLineage/tree/main/integration/spark/databricks#databricks-install-instructions) to enable OpenLineage in Databricks.
     1. Download the [OpenLineage-Spark 0.8.2 jar](https://repo1.maven.org/maven2/io/openlineage/openlineage-spark/0.8.2/openlineage-spark-0.8.2.jar) from Maven Central
-    2. Create an init-script named `open-lineage-init-script.sh`
+    2. Create an init-script and name it `open-lineage-init-script.sh`.
 
         ```text
         #!/bin/bash
@@ -135,8 +137,12 @@ You will need the default API / Host key configured on your Function app. To ret
         }
         EOF
         ```
-
-    3. Upload the init script and jar to dbfs using the [Databricks CLI](https://docs.microsoft.com/en-us/azure/databricks/dev-tools/cli/)
+    1. Upload the jar file and the init-script to `Purview-ADB-Lineage-Solution-Accelerator/deployment/infra/` in your cloudshell.
+    2. You will need to set up authentication using the Databricks personal access token created above. Run the following bash command and fill in the `Databricks Host        (should begin with https://)` and `Token` prompts.
+        ```text
+        databricks configure --token
+        ```
+    4. Upload the init script and jar to dbfs using the [Databricks CLI](https://docs.microsoft.com/en-us/azure/databricks/dev-tools/cli/)
 
         ```text
         dbfs mkdirs dbfs:/databricks/openlineage
