@@ -118,8 +118,9 @@ You will need the default API / Host key configured on your Function app. To ret
 
     ![GetAdbEndpoint.png](./assets/img/deploy/GetAdbEndpoint.png)
 1. Create a Personal Access Token by launching the DataBricks workspace. Click the `Settings` gear near the bottom left of the page and click `User Settings`. Under `Access tokens` click `Generate new token`. Name your token and choose its lifetime and click `Generate`. Copy the generated token. (NOTE: You can not retrive this token once you close out of the window. Put this token in a save place!)
-1. To retrieve the FUNCTION_APP_NAME, go back to the resource group view and click on the Azure Function. On the Overview tab, copy the `URL` and save it for the next steps.
-1. To retrieve the FUNCTION_APP_DEFAULT_HOST_KEY, go back to the resource group view and click on the Azure Function. In the right pane go to 'App Keys', then click on the show values icon and copy the `default` key.
+    ![CreateToken.png](./assets/img/deploy/CreateToken.png)
+3. To retrieve the FUNCTION_APP_NAME, go back to the resource group view and click on the Azure Function. On the Overview tab, copy the `URL` and save it for the next steps.
+4. To retrieve the FUNCTION_APP_DEFAULT_HOST_KEY, go back to the resource group view and click on the Azure Function. In the right pane go to 'App Keys', then click on the show values icon and copy the `default` key.
 
     ![FunctionKeys.png](./assets/img/deploy/FunctionKeys.png)
 
@@ -138,7 +139,7 @@ You will need the default API / Host key configured on your Function app. To ret
         EOF
         ```
     1. Upload the jar file and the init-script to `Purview-ADB-Lineage-Solution-Accelerator/deployment/infra/` in your cloudshell.
-    2. You will need to set up authentication using the Databricks personal access token created above. Run the following bash command and fill in the `Databricks Host        (should begin with https://)` and `Token` prompts.
+    2. You will need to set up authentication using the Databricks personal access token created above. Run the following bash command and fill in the `Databricks Host        (should begin with https://)` and `Token` prompts. (DataBricks Host example: https://adb-xxxxxxxxxxx.x.azuredatabricks.net/)
         ```text
         databricks configure --token
         ```
